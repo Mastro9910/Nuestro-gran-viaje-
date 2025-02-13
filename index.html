@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il nostro viaggio per sempre</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #fff3e0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            padding-top: 30px;
+        }
+        .banner-container {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .banner-container:active {
+            transform: scale(0.9);
+        }
+        .banner {
+            width: 40vw;
+        }
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+        }
+        .button {
+            width: 250px;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+        .button:active {
+            transform: scale(0.9);
+        }
+        .letter-container, .book-container {
+            display: none;
+            position: absolute;
+            top: 110%;
+            left: 50%;
+            transform: translate(-50%, 10px) scale(0);
+            transition: transform 0.3s;
+        }
+        .letter-container img, .book-container img {
+            width: 200px;
+            height: auto;
+        }
+        .letter-container:hover img {
+            content: url('Hearth.gif');
+        }
+        .book-container img:hover {
+            content: url('Libro.gif');
+        }
+        .book-container img {
+            transition: none;
+        }
+        .show {
+            display: block;
+            transform: translate(-50%, 10px) scale(1);
+        }
+        .fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            flex-direction: column;
+        }
+        .fullscreen img {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        .message {
+            font-family: 'Alagard', sans-serif;
+            color: white;
+            font-size: 24px;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <img src="Panda-rosso_3.gif" class="panda-gif" alt="Panda Rosso">
+    <div class="banner-container" onclick="showEndScreen()">
+        <img src="Banner.png" class="banner" alt="Banner">
+    </div>
+    <div class="buttons">
+        <div style="position: relative;">
+            <img src="button_1.png" class="button" onclick="showLetter()" alt="Button 1">
+            <div class="letter-container" id="letter">
+                <img src="Lettera.png" alt="Lettera" onclick="showFullscreenLetter()">
+            </div>
+        </div>
+        <div style="position: relative;">
+            <img src="button_2.png" class="button" onclick="showBook()" alt="Button 2">
+            <div class="book-container" id="book">
+                <img src="Librochiuso.png" alt="Libro" id="bookImage" onclick="showFullscreenBook()">
+            </div>
+        </div>
+    </div>
+    <div id="fullscreenBook" class="fullscreen" style="display: none;">
+        <img src="Libroaperto.png" alt="Libro Aperto">
+        <button onclick="goBack()">Indietro</button>
+    </div>
+    <div id="fullscreenLetter" class="fullscreen" style="display: none;">
+        <img src="Pergamena.png" alt="Pergamena">
+        <button onclick="goBack()">Indietro</button>
+    </div>
+    <div id="endScreen" class="fullscreen" style="display: none;">
+        <img src="End.png" alt="End">
+        <div>
+            <img src="SI.png" class="button" alt="Si" onclick="showYesMessage()">
+            <img src="No.png" class="button" alt="No" onclick="showNoMessage()">
+        </div>
+        <button onclick="goToMainScreen()">Indietro</button>
+    </div>
+    <div id="messageScreen" class="fullscreen" style="display: none;">
+        <img id="messageImage" src="" alt="">
+        <div class="message" id="messageText"></div>
+        <button onclick="goToChoiceScreen()">Indietro</button>
+    </div>
+    <script>
+        function showLetter() {
+            let letter = document.getElementById("letter");
+            letter.classList.add("show");
+        }
+        function showBook() {
+            let book = document.getElementById("book");
+            book.classList.add("show");
+        }
+        function showFullscreenBook() {
+            document.getElementById("fullscreenBook").style.display = "flex";
+        }
+        function showFullscreenLetter() {
+            document.getElementById("fullscreenLetter").style.display = "flex";
+        }
+        function showEndScreen() {
+            document.getElementById("endScreen").style.display = "flex";
+        }
+        function showYesMessage() {
+            document.getElementById("messageScreen").style.display = "flex";
+            document.getElementById("messageImage").src = "Gatto.gif";
+            document.getElementById("messageText").innerText = "Sarà il nostro viaggio più bello di sempre e non vedo l'ora di viverlo per sempre insieme a te :)";
+            document.getElementById("endScreen").style.display = "none";
+        }
+        function showNoMessage() {
+            document.getElementById("messageScreen").style.display = "flex";
+            document.getElementById("messageImage").src = "Nuvola.gif";
+            document.getElementById("messageText").innerText = "Il mio piccolo cuoricino si sta spezzando, sei davvero sicura di non voler cambiare idea? :(";
+            document.getElementById("endScreen").style.display = "none";
+        }
+        function goToChoiceScreen() {
+            document.getElementById("messageScreen").style.display = "none";
+            document.getElementById("endScreen").style.display = "flex";
+        }
+        function goToMainScreen() {
+            document.getElementById("endScreen").style.display = "none";
+        }
+        function goBack() {
+            location.reload();
+        }
+    </script>
+</body>
+</html>
